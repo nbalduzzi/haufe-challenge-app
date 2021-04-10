@@ -1,0 +1,104 @@
+.login-container {
+  margin:0;
+  padding:0;
+  background: linear-gradient(#141e30, #243b55) !important;
+  height: 100%;
+}
+
+.login-box {
+  margin:0;
+  padding:0;
+  background: linear-gradient(#141e30, #243b55);
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  padding: 40px;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,.5);
+  box-sizing: border-box;
+  box-shadow: 0 15px 25px rgba(0,0,0,.6);
+  border-radius: 10px;
+  color: white
+}
+
+.login-box h2 {
+  margin: 0 0 30px;
+  padding: 0;
+  color: #fff;
+  text-align: center;
+}
+
+.login-box .user-box {
+  position: relative;
+}
+
+.login-box .user-box input {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+}
+.login-box .user-box label {
+  position: absolute;
+  top:0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: .5s;
+}
+
+.login-box form a {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  margin-top: 1em;
+  letter-spacing: 4px
+}
+
+.login-box a {
+  color: #fff;
+}
+
+.login-box a span {
+  position: absolute;
+  display: block;
+}
+
+.login-box .btn {
+    margin: 1em;
+    display: inline-block;
+    zoom: 1;
+    padding: .5em 1em;
+    cursor: pointer;
+    border: 1px solid #bbb;
+    border-radius: .5em;
+    text-decoration: none;
+    white-space: nowrap;
+    color: #555;
+    background-color: #ddd;
+    font-weight: bold;
+}
+
+.alert-error {
+  color: red;
+  padding: 1em;
+}
+
+.alert-success {
+  color: white;
+  padding: 1em;
+  font-weight: bold;
+}
