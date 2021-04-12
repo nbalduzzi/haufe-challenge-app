@@ -1,50 +1,53 @@
-import { Redirect, Route, Switch } from 'react-router';
+import { Switch, Route, Redirect } from 'react-router';
 
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import './App.css';
 
-import { isAuthenticated } from './services/AuthService';
-import LoginForm from './components/auth/LoginForm';
-import RegisterForm from './components/auth/RegisterForm';
 import Layout from './Layout';
-import ListCharacters from './components/characters/ListCharacters';
-import CharacterDetail from './components/characters/CharacterDetail';
+import LoginPage from './components/auth/LoginPage';
+import RegisterPage from './components/auth/RegisterPage';
+import CharactersPage from './components/characters/CharactersPage';
+import CharacterDetailPage from './components/characters/CharacterDetailPage';
 import NotFoundRoute from './components/NotFoundRoute';
+import { isAuthenticated } from './services/AuthService';
 
 function App() {
     return (
         <Switch>
             <Route path="/login">
-                <LoginForm />
+                <LoginPage />
             </Route>
             <Route path="/register">
-                <RegisterForm />
+                <RegisterPage />;
             </Route>
-            <Route
-                path="/character/:id"
-                render={() =>
-                    isAuthenticated() ? (
-                        <Layout>
-                            <CharacterDetail />
-                        </Layout>
-                    ) : (
-                        <Redirect to={{ pathname: '/login' }} />
-                    )
-                }
-            />
             <Route
                 exact
                 path="/"
-                render={() =>
-                    isAuthenticated() ? (
+                render={(props) => {
+                    if (!isAuthenticated()) {
+                        return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />;
+                    }
+
+                    return (
                         <Layout>
-                            <ListCharacters />
+                            <CharactersPage {...props} />
                         </Layout>
-                    ) : (
-                        <Redirect to={{ pathname: '/login' }} />
-                    )
-                }
+                    );
+                }}
             />
+            <Route
+                path="/characters/:id"
+                render={(props) => {
+                    if (!isAuthenticated()) {
+                        return <Redirect to={{ pathname: '/login', state: { from: props.location } }} />;
+                    }
+
+                    return (
+                        <Layout>
+                            <CharacterDetailPage {...props} />
+                        </Layout>
+                    );
+                }}
+            ></Route>
             <Route path="*">
                 <NotFoundRoute />
             </Route>

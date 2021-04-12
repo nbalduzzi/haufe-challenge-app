@@ -1,14 +1,27 @@
-export const addFavorite = async (character) => {
-    return fetch(`http://localhost:3001/favorites/${character.id}`, {
-        method: 'PUT',
-        headers: { authorization: window.localStorage.getItem('access_token'), 'Content-Type': 'application/json' },
-        body: JSON.stringify(character),
-    }).catch((err) => console.error(err));
+export const addFavorite = async (characterId) => {
+    try {
+        const response = await fetch(`http://localhost:3001/favorites/${characterId}`, {
+            method: 'PUT',
+            headers: { authorization: window.localStorage.getItem('access_token'), 'Content-Type': 'application/json' },
+        });
+
+        if (!response.ok) throw response;
+        return await response.json();
+    } catch (e) {
+        throw e;
+    }
 };
 
-export const removeFavorite = async (character) => {
-    return fetch(`http://localhost:3001/favorites/${character.id}`, {
-        method: 'DELETE',
-        headers: { authorization: window.localStorage.getItem('access_token') },
-    }).catch((err) => console.error(err));
+export const removeFavorite = async (characterId) => {
+    try {
+        const response = await fetch(`http://localhost:3001/favorites/${characterId}`, {
+            method: 'DELETE',
+            headers: { authorization: window.localStorage.getItem('access_token') },
+        });
+
+        if (!response.ok) throw response;
+        return;
+    } catch (e) {
+        throw e;
+    }
 };

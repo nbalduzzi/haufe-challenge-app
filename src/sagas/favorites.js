@@ -6,26 +6,20 @@ import * as api from '../api/favorite';
 
 function* addFavorite({ payload }) {
     try {
-        const response = yield call(api.addFavorite, payload.item);
-
-        if (response.statusCode) throw response;
-        yield put(actions.addFavoriteSuccess(payload.item.id));
-        yield put(characterActions.getCharacterRequest(payload.item.id));
+        yield call(api.addFavorite, payload.id);
+        yield put(actions.addFavoriteSuccess(payload.id));
+        yield put(characterActions.getCharacterRequest(payload.id));
     } catch (e) {
-        console.error(e);
         yield put(actions.addFavoriteError(e));
     }
 }
 
 function* removeFavorite({ payload }) {
     try {
-        const response = yield call(api.removeFavorite, payload.item);
-
-        if (response.statusCode) throw response;
-        yield put(actions.removeFavoriteSuccess(payload.item.id));
-        yield put(characterActions.getCharacterRequest(payload.item.id));
+        yield call(api.removeFavorite, payload.id);
+        yield put(actions.removeFavoriteSuccess(payload.id));
+        yield put(characterActions.getCharacterRequest(payload.id));
     } catch (e) {
-        console.error(e);
         yield put(actions.removeFavoriteError(e));
     }
 }

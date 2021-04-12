@@ -1,16 +1,16 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import Error from '../Error';
 import { getCharacterRequest } from '../../actions/characters';
 import { addFavoriteRequest, removeFavoriteRequest } from '../../actions/favorite';
-import { getLogoutRequest } from '../../actions/auth';
+import NotFoundRoute from '../NotFoundRoute';
+import HeartIcon from './HeartIcon';
 
-export default function CharacterDetail() {
+export default function CharacterDetailPage() {
     const dispatch = useDispatch();
-    const history = useHistory();
 
     const { id } = useParams();
 
@@ -19,24 +19,19 @@ export default function CharacterDetail() {
     const isLoading = useSelector((state) => state.characters?.loading);
     const character = useSelector((state) => state.characters?.item);
     const error = useSelector((state) => state.characters?.error);
-    // const notFound = useSelector((state) => state.characters?.notFound);
+    const notFound = useSelector((state) => state.characters?.notFound);
 
     if (isLoading) return <div>Loading...</div>;
-    // if (notFound) return <NotFoundRoute />;
+    if (notFound) return <NotFoundRoute />;
     if (!isLoading && error) <Error />;
 
     const handleFavorite = (c) => {
         if (c.isFavorite) {
-            dispatch(removeFavoriteRequest(c));
+            dispatch(removeFavoriteRequest(c.id));
         } else {
-            dispatch(addFavoriteRequest(c));
+            dispatch(addFavoriteRequest(c.id));
         }
     };
-
-    if (error.status === 401) {
-        dispatch(getLogoutRequest());
-        history.replace('/login');
-    }
 
     return (
         <div className="wrapper">
@@ -52,11 +47,11 @@ export default function CharacterDetail() {
                     <div className="container">
                         <h3 className="card-title">
                             <b>{character.name}</b>
-                            <i
-                                className={character.isFavorite ? 'fav bi-heart-fill' : 'fav bi-heart'}
-                                style={{ color: character.isFavorite ? 'red' : 'inherit' }}
+
+                            <HeartIcon
+                                className={`pointer ${character.isFavorite ? 'isFav' : 'notFav'}`}
                                 onClick={() => handleFavorite(character)}
-                            ></i>
+                            />
                         </h3>
                         <p className="card-title">
                             {character.status} · {character.gender}{' '}

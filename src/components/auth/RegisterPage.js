@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import AuthForm from './AuthForm';
-import { getRegisterRequest } from '../../actions/auth';
+import { getRegisterRequest, clearErrors } from '../../actions/auth';
 
-export default function RegisterForm() {
+export default function RegisterPage() {
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(clearErrors());
+    }, [dispatch]);
 
     const error = useSelector((state) => state.auth?.error);
     const success = useSelector((state) => state.auth?.success);
@@ -22,8 +26,6 @@ export default function RegisterForm() {
         dispatch(getRegisterRequest({ username, password }));
     };
 
-    console.info(error, success);
-
     return (
         <React.Fragment>
             <AuthForm onSubmit={handleFormSubmit}>
@@ -34,10 +36,10 @@ export default function RegisterForm() {
                     ''
                 )}
 
-                <div className="user-box">
-                    <input type="email" placeholder="name@example.com" onChange={handleChangeUsername} />
+                <div className="input-box">
+                    <input type="text" placeholder="Username" onChange={handleChangeUsername} />
                 </div>
-                <div className="user-box">
+                <div className="input-box">
                     <input type="password" placeholder="Password" onChange={handleChangePassword} />
                 </div>
                 <div>

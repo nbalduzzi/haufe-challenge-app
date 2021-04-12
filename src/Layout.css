@@ -42,3 +42,7 @@ body {
     text-decoration: none;
     font-size: 17px;
 }
+
+.btn {
+    cursor: pointer;
+}

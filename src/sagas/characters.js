@@ -6,11 +6,8 @@ import * as api from '../api/characters';
 function* fetchCharacters({ payload }) {
     try {
         const response = yield call(api.getCharacters, payload.page);
-
-        if (response.statusCode) throw response;
         yield put(actions.getCharactersSuccess(response.results));
     } catch (e) {
-        console.error(e);
         yield put(actions.getCharactersError(e));
     }
 }
@@ -18,12 +15,13 @@ function* fetchCharacters({ payload }) {
 function* fetchCharacter({ payload }) {
     try {
         const response = yield call(api.getCharacter, payload.id);
-
-        if (response.statusCode) throw response;
         yield put(actions.getCharacterSuccess(response));
     } catch (e) {
-        console.error(e);
-        yield put(actions.getCharacterError(e));
+        if (e.status === 404) {
+            yield put(actions.getCharacterNotFoundError());
+        } else {
+            yield put(actions.getCharacterError(e));
+        }
     }
 }
 

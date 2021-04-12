@@ -1,16 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory, useLocation } from 'react-router';
-
-import { logout } from './services/AuthService';
+import { getLogoutRequest } from './actions/auth';
 
 import './Layout.css';
 
 export default function Layout({ children }) {
+    const dispatch = useDispatch();
     const location = useLocation();
     const history = useHistory();
 
     const handleLogout = () => {
-        logout();
+        dispatch(getLogoutRequest());
         history.replace('/login');
     };
 
@@ -28,7 +29,7 @@ export default function Layout({ children }) {
                 ) : (
                     ''
                 )}
-                <span className="right bold link-right" onClick={handleLogout}>
+                <span className="right bold link-right btn" onClick={handleLogout}>
                     Logout
                 </span>
             </nav>

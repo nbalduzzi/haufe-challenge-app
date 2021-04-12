@@ -1,5 +1,6 @@
-import { takeEvery, call, put, fork } from 'redux-saga/effects';
+import { call, put, fork, takeLatest } from 'redux-saga/effects';
 
+import * as authService from '../services/AuthService';
 import * as actions from '../actions/auth';
 import * as api from '../api/auth';
 
@@ -8,9 +9,9 @@ function* login({ payload }) {
         const response = yield call(api.login, payload);
 
         if (response.statusCode) throw response;
+        yield call(authService.setAsAuthenticated, response.access_token);
         yield put(actions.getLoginSuccess(response));
     } catch (e) {
-        console.error(e);
         yield put(actions.getLoginError(e));
     }
 }
@@ -22,32 +23,44 @@ function* register({ payload }) {
         if (response.statusCode) throw response;
         yield put(actions.getRegisterSuccess(response));
     } catch (e) {
-        console.error(e);
         yield put(actions.getRegisterError(e));
     }
 }
 
 function* logout() {
     try {
+        yield call(authService.logout);
         yield put(actions.getLogoutSuccess());
     } catch (e) {
-        console.error(e);
         yield put(actions.getLogoutError(e));
     }
 }
 
+function* clearErrors() {
+    yield put(actions.clearErrors());
+}
+
 function* watchLoginRequest() {
-    yield takeEvery(actions.Types.LOGIN_REQUEST, login);
+    yield takeLatest(actions.Types.LOGIN_REQUEST, login);
 }
 
 function* watchRegisterRequest() {
-    yield takeEvery(actions.Types.REGISTER_REQUEST, register);
+    yield takeLatest(actions.Types.REGISTER_REQUEST, register);
 }
 
 function* watchLogoutRequest() {
-    yield takeEvery(actions.Types.LOGOUT_REQUEST, logout);
+    yield takeLatest(actions.Types.LOGOUT_REQUEST, logout);
 }
 
-const authSagas = [fork(watchLoginRequest), fork(watchRegisterRequest), fork(watchLogoutRequest)];
+function* watchClearErrorsRequest() {
+    yield takeLatest(actions.Types.LOGOUT_REQUEST, clearErrors);
+}
+
+const authSagas = [
+    fork(watchLoginRequest),
+    fork(watchRegisterRequest),
+    fork(watchLogoutRequest),
+    fork(watchClearErrorsRequest),
+];
 
 export default authSagas;

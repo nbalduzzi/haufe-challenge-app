@@ -25,7 +25,7 @@
     min-height: 320px;
 }
 
-.card .card-title > i {
+.card .card-title > svg {
     float: right;
 }
 
@@ -41,7 +41,7 @@
     font-size: .8em;
 }
 
-.card .fav {
+.pointer {
     cursor: pointer;
 }
 
@@ -50,4 +50,12 @@
     height: 1px;
     background-color: #eee;
     margin-top: 1.5em;
+}
+
+.isFav {
+    fill: red;
+}
+
+.notFav {
+    fill: none;
 }

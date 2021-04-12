@@ -8,7 +8,6 @@ export const getCharacters = async (page = 0) => {
         if (!response.ok) throw response;
         return await response.json();
     } catch (e) {
-        console.error(e);
         throw e;
     }
 };
@@ -23,7 +22,6 @@ export const getCharacter = async (id) => {
         if (!response.ok) throw response;
         return await response.json();
     } catch (e) {
-        console.error(e);
         throw e;
     }
 };

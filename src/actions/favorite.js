@@ -7,9 +7,9 @@ export const Types = {
     REMOVE_FAVORITE_ERROR: 'REMOVE_FAVORITE_ERROR',
 };
 
-export const addFavoriteRequest = (item) => ({ type: Types.ADD_FAVORITE_REQUEST, payload: { item } });
+export const addFavoriteRequest = (id) => ({ type: Types.ADD_FAVORITE_REQUEST, payload: { id } });
 export const addFavoriteSuccess = (id) => ({ type: Types.ADD_FAVORITE_SUCCESS, id });
 export const addFavoriteError = (error) => ({ type: Types.ADD_FAVORITE_ERROR, error });
-export const removeFavoriteRequest = (item) => ({ type: Types.REMOVE_FAVORITE_REQUEST, payload: { item } });
+export const removeFavoriteRequest = (id) => ({ type: Types.REMOVE_FAVORITE_REQUEST, payload: { id } });
 export const removeFavoriteSuccess = (id) => ({ type: Types.REMOVE_FAVORITE_SUCCESS, id });
 export const removeFavoriteError = (error) => ({ type: Types.REMOVE_FAVORITE_ERROR, error });
