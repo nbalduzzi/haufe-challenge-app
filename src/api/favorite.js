@@ -1,6 +1,6 @@
 export const addFavorite = async (characterId) => {
     try {
-        const response = await fetch(`http://localhost:3001/favorites/${characterId}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/favorites/${characterId}`, {
             method: 'PUT',
             headers: { authorization: window.localStorage.getItem('access_token'), 'Content-Type': 'application/json' },
         });
@@ -14,7 +14,7 @@ export const addFavorite = async (characterId) => {
 
 export const removeFavorite = async (characterId) => {
     try {
-        const response = await fetch(`http://localhost:3001/favorites/${characterId}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/favorites/${characterId}`, {
             method: 'DELETE',
             headers: { authorization: window.localStorage.getItem('access_token') },
         });

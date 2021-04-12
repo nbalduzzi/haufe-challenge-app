@@ -1,6 +1,6 @@
 export const getCharacters = async (page = 0) => {
     try {
-        const response = await fetch(`http://localhost:3001/characters?page=${page}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/characters?page=${page}`, {
             method: 'GET',
             headers: { authorization: window.localStorage.getItem('access_token') },
         });
@@ -14,7 +14,7 @@ export const getCharacters = async (page = 0) => {
 
 export const getCharacter = async (id) => {
     try {
-        const response = await fetch(`http://localhost:3001/characters/${id}`, {
+        const response = await fetch(`${process.env.REACT_APP_BACKEND_API_URL}/characters/${id}`, {
             method: 'GET',
             headers: { authorization: window.localStorage.getItem('access_token') },
         });

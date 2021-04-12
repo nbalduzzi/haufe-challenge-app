@@ -14,7 +14,6 @@ import rootSaga from './sagas';
 import authMiddleware from './middlewares/authMiddleware';
 
 const sagaMiddleware = createSagaMiddleware();
-
 const store = createStore(reducers, applyMiddleware(sagaMiddleware, authMiddleware));
 
 sagaMiddleware.run(rootSaga);
@@ -30,4 +29,6 @@ ReactDOM.render(
     document.getElementById('root'),
 );
 
-reportWebVitals();
+if (process.env.NODE_ENV !== 'production') {
+    reportWebVitals();
+}

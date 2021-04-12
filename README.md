@@ -10,6 +10,10 @@ Haufe Challenge Single Page Application with React/Redux-Saga.
 2. [redux-saga](https://redux-saga.js.org/) - For helping to handle the side effects and have control of the tasks and executions
 3. [react-router / react-router-dom](https://reactrouter.com/) - To handle the routing and history.
 
+# Considerations
+
+1. The `.env.production` file is in the repository and the information inside is the same as `.env.development` for challenge purpose, but this must not be like this. The production enviroment variables must be in some `vpc` or some secured storage and encrypted, and must be injected (or replaced) on deploy step.
+
 # Plugins
 
 1. [Infinite Scoll](https://www.npmjs.com/package/react-infinite-scroller) plugin for loading the characters by scrolling down.
@@ -47,6 +51,8 @@ To serve it with a static server:
 npm install -g serve
 serve -s build
 ```
+
+> The command before should start the app on port 5000
 
 ## How to use?
 

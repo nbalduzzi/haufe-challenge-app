@@ -1,7 +1,7 @@
 {
     "name": "haufe-challenge-app",
     "version": "1.0.0",
-    "description": "Haufe Challenge API",
+    "description": "Haufe Challenge APP",
     "main": "index.js",
     "dependencies": {
         "@testing-library/jest-dom": "^5.11.10",
