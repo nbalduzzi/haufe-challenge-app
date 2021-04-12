@@ -12,6 +12,15 @@ function* fetchCharacters({ payload }) {
     }
 }
 
+function* fetchMoreCharacters({ payload }) {
+    try {
+        const response = yield call(api.getCharacters, payload.page);
+        yield put(actions.getMoreCharactersSuccess(response.results));
+    } catch (e) {
+        yield put(actions.getMoreCharactersSuccess(e));
+    }
+}
+
 function* fetchCharacter({ payload }) {
     try {
         const response = yield call(api.getCharacter, payload.id);
@@ -29,10 +38,18 @@ function* watchGetCharactersRequest() {
     yield takeEvery(actions.Types.GET_CHARACTERS_REQUEST, fetchCharacters);
 }
 
+function* watchGetMoreCharactersRequest() {
+    yield takeEvery(actions.Types.GET_MORE_CHARACTERS_REQUEST, fetchMoreCharacters);
+}
+
 function* watchGetCharacterRequest() {
     yield takeEvery(actions.Types.GET_CHARACTER_REQUEST, fetchCharacter);
 }
 
-const charactersSagas = [fork(watchGetCharactersRequest), fork(watchGetCharacterRequest)];
+const charactersSagas = [
+    fork(watchGetCharactersRequest),
+    fork(watchGetMoreCharactersRequest),
+    fork(watchGetCharacterRequest),
+];
 
 export default charactersSagas;

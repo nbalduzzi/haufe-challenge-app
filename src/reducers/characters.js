@@ -5,6 +5,8 @@ const initialState = { error: false, success: false, loading: true, notFound: fa
 export const reducers = (state = initialState, action) => {
     switch (action.type) {
         case Types.GET_CHARACTERS_SUCCESS:
+            return { ...state, items: action.items, success: true, loading: false };
+        case Types.GET_MORE_CHARACTERS_SUCCESS:
             return { ...state, items: [...state.items, ...action.items], success: true, loading: false };
         case Types.GET_CHARACTERS_ERROR:
             return { ...state, error: action.error, loading: false };

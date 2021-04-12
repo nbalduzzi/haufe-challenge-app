@@ -5,7 +5,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import HeartIcon from './HeartIcon';
-import { getCharactersRequest } from '../../actions/characters';
+import { getCharactersRequest, getMoreCharactersRequest } from '../../actions/characters';
 
 import './Characters.css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
@@ -19,7 +19,7 @@ export default function CharactersPage() {
     const isLoading = useSelector((state) => state.characters?.loading);
     const hasMoreData = !isLoading && characters.length > 0;
 
-    const loadData = (page) => dispatch(getCharactersRequest(page));
+    const loadData = (page) => dispatch(getMoreCharactersRequest(page));
 
     return (
         <InfiniteScroll pageStart={2} loadMore={loadData} hasMore={hasMoreData} className="wrapper">
